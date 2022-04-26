@@ -140,5 +140,5 @@ abstract class AbstractQueryFilterPlugin implements SchemaUpdater, ModelQueryPlu
      * @param array $config
      * @return array
      */
-    abstract protected function getResolver(array $config): array;
+    abstract protected function getResolver(array $config): callable;
 }

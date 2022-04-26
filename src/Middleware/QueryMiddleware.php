@@ -18,5 +18,5 @@ interface QueryMiddleware
      * @param callable $next
      * @return ExecutionResult|array Result either as an ExecutionResult object or raw array
      */
-    public function process(Schema $schema, $query, $context, $vars, callable $next);
+    public function process(Schema $schema, string $query, array $context, array $vars, callable $next);
 }

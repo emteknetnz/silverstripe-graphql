@@ -35,7 +35,7 @@ class QueryCachingMiddleware implements QueryMiddleware, Flushable
     /**
      * @inheritDoc
      */
-    public function process(Schema $schema, $query, $context, $vars, callable $next)
+    public function process(Schema $schema, string $query, array $context, array $vars, callable $next)
     {
         if (!DataObject::singleton()->hasExtension(QueryRecorderExtension::class)) {
             throw new Exception(sprintf(
@@ -78,7 +78,7 @@ class QueryCachingMiddleware implements QueryMiddleware, Flushable
      * @param CacheInterface $cache
      * @return $this
      */
-    public function setCache($cache): self
+    public function setCache(CacheInterface $cache): self
     {
         $this->cache = $cache;
         return $this;
@@ -91,7 +91,7 @@ class QueryCachingMiddleware implements QueryMiddleware, Flushable
      * @param array $vars
      * @return string
      */
-    protected function generateCacheKey($query, $vars): string
+    protected function generateCacheKey(string $query, array $vars): string
     {
         return md5(var_export(
             [
@@ -111,7 +111,7 @@ class QueryCachingMiddleware implements QueryMiddleware, Flushable
      * @return array|null
      * @throws InvalidArgumentException
      */
-    protected function getCachedResponse($key): ?array
+    protected function getCachedResponse(string $key): ?array
     {
         // Initially check if the cached value exists at all
         $cache = $this->getCache();
@@ -143,7 +143,7 @@ class QueryCachingMiddleware implements QueryMiddleware, Flushable
      * @param array $classesUsed
      * @throws InvalidArgumentException
      */
-    protected function storeCache($key, $response, $classesUsed): void
+    protected function storeCache(string $key, $response, array $classesUsed): void
     {
         // Ensure we store serialisable version of result
         if ($response instanceof ExecutionResult) {

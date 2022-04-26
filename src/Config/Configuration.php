@@ -29,7 +29,7 @@ class Configuration
     /**
      * Return a setting by dot.separated.syntax
      * @param string|array $path
-     * @param mixed $default
+     * @param ?mixed $default
      * @return mixed
      * @throws SchemaBuilderException
      */
@@ -52,12 +52,9 @@ class Configuration
     }
 
     /**
-     * @param $path
-     * @param callable $callback
-     * @return $this
      * @throws SchemaBuilderException
      */
-    private function path($path, $callback): void
+    private function path($path, callable $callback): void
     {
         if (is_string($path)) {
             $path = explode('.', $path ?? '');

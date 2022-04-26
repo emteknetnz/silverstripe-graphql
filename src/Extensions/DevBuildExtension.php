@@ -28,7 +28,7 @@ class DevBuildExtension extends DataExtension
     /**
      * @return void
      */
-    public function onAfterBuild()
+    public function onAfterBuild(): void
     {
         if (!static::config()->get('enabled')) {
             return;

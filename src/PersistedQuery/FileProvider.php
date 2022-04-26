@@ -29,7 +29,7 @@ class FileProvider implements PersistedQueryMappingProvider
      * @var array
      * @config
      */
-    protected $schemaToPath = [
+    protected array $schemaToPath = [
         'default' => ''
     ];
 
@@ -39,7 +39,7 @@ class FileProvider implements PersistedQueryMappingProvider
      * @param string $schemaKey
      * @return array
      */
-    public function getQueryMapping($schemaKey = 'default')
+    public function getQueryMapping(string $schemaKey = 'default'): array
     {
         /** @noinspection PhpUndefinedFieldInspection */
         /** @noinspection StaticInvocationViaThisInspection */
@@ -65,7 +65,7 @@ class FileProvider implements PersistedQueryMappingProvider
      * @param string $schemaKey
      * @return string
      */
-    public function getByID($queryID, $schemaKey = 'default')
+    public function getByID(string $queryID, string $schemaKey = 'default'): ?string
     {
         $mapping = $this->getQueryMapping($schemaKey);
 
@@ -76,7 +76,7 @@ class FileProvider implements PersistedQueryMappingProvider
      * @param array $mapping
      * @return $this
      */
-    public function setSchemaMapping(array $mapping)
+    public function setSchemaMapping(array $mapping): self
     {
         $this->schemaToPath = $mapping;
 
@@ -86,7 +86,7 @@ class FileProvider implements PersistedQueryMappingProvider
     /**
      * @return array
      */
-    public function getSchemaMapping()
+    public function getSchemaMapping(): array
     {
         return $this->schemaToPath;
     }

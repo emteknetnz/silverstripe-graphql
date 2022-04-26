@@ -33,7 +33,7 @@ class JSONStringProvider implements PersistedQueryMappingProvider
      * @var array
      * @config
      */
-    protected $schemaToJSON = [
+    protected array $schemaToJSON = [
         'default' => ''
     ];
 
@@ -43,7 +43,7 @@ class JSONStringProvider implements PersistedQueryMappingProvider
      * @param string $schemaKey
      * @return array
      */
-    public function getQueryMapping($schemaKey = 'default')
+    public function getQueryMapping(string $schemaKey = 'default'): array
     {
         /** @noinspection PhpUndefinedFieldInspection */
         /** @noinspection StaticInvocationViaThisInspection */
@@ -68,7 +68,7 @@ class JSONStringProvider implements PersistedQueryMappingProvider
      * @param string $schemaKey
      * @return string
      */
-    public function getByID($queryID, $schemaKey = 'default')
+    public function getByID(string $queryID, string $schemaKey = 'default'): ?string
     {
         $mapping = $this->getQueryMapping($schemaKey);
 
@@ -79,7 +79,7 @@ class JSONStringProvider implements PersistedQueryMappingProvider
      * @param array $mapping
      * @return $this
      */
-    public function setSchemaMapping(array $mapping)
+    public function setSchemaMapping(array $mapping): self
     {
         foreach ($mapping as $schemaKey => $queryMap) {
             if (!is_string($queryMap)) {
@@ -102,7 +102,7 @@ class JSONStringProvider implements PersistedQueryMappingProvider
     /**
      * @return array
      */
-    public function getSchemaMapping()
+    public function getSchemaMapping(): array
     {
         return $this->schemaToJSON;
     }

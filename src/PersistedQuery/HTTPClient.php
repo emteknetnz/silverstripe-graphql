@@ -9,5 +9,5 @@ interface HTTPClient
      * @param int $timeout
      * @return string
      */
-    public function getURL($url, $timeout);
+    public function getURL(string $url, int $timeout): ?string;
 }

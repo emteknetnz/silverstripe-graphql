@@ -14,7 +14,7 @@ interface PersistedQueryMappingProvider
      * @param string $schemaKey
      * @return array
      */
-    public function getQueryMapping($schemaKey = 'default');
+    public function getQueryMapping(string $schemaKey = 'default'): array;
 
     /**
      * return a query given an ID
@@ -23,7 +23,7 @@ interface PersistedQueryMappingProvider
      * @param string $schemaKey
      * @return string
      */
-    public function getByID($queryID, $schemaKey = 'default');
+    public function getByID(string $queryID, string $schemaKey = 'default'): ?string;
 
     /**
      * Sets mapping of query mapping to schema keys
@@ -36,5 +36,5 @@ interface PersistedQueryMappingProvider
     /**
      * @return array
      */
-    public function getSchemaMapping();
+    public function getSchemaMapping(): array;
 }

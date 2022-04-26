@@ -6,13 +6,14 @@ use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse_Exception;
 use SilverStripe\ORM\ValidationException;
 use SilverStripe\Security\BasicAuth;
+use SilverStripe\Security\Member;
 
 /**
  * An authenticator using SilverStripe's BasicAuth
  */
 class BasicAuthAuthenticator implements AuthenticatorInterface
 {
-    public function authenticate(HTTPRequest $request)
+    public function authenticate(HTTPRequest $request): ?Member
     {
         try {
             return BasicAuth::requireLogin($request, 'Restricted resource');
@@ -23,7 +24,7 @@ class BasicAuthAuthenticator implements AuthenticatorInterface
         }
     }
 
-    public function isApplicable(HTTPRequest $request)
+    public function isApplicable(HTTPRequest $request): bool
     {
         if ($this->hasAuthHandler('HTTP_AUTHORIZATION')
             || $this->hasAuthHandler('REDIRECT_HTTP_AUTHORIZATION')
@@ -42,7 +43,7 @@ class BasicAuthAuthenticator implements AuthenticatorInterface
      * @param  string $servervar
      * @return bool
      */
-    protected function hasAuthHandler($servervar)
+    protected function hasAuthHandler(string $servervar): bool
     {
         return isset($_SERVER[$servervar]) && preg_match('/Basic\s+(.*)$/i', $_SERVER[$servervar] ?? '');
     }

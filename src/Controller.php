@@ -41,9 +41,8 @@ class Controller extends BaseController
      * Cors default config
      *
      * @config
-     * @var array
      */
-    private static $cors = [
+    private static array $cors = [
         'Enabled' => false, // Off by default
         'Allow-Origin' => [], // List of all allowed origins; Deny by default
         'Allow-Headers' => 'Authorization, Content-Type',
@@ -52,31 +51,14 @@ class Controller extends BaseController
         'Max-Age' => 86400, // 86,400 seconds = 1 day.
     ];
 
-    /**
-     * @var string
-     */
-    private $schemaKey;
+    private string $schemaKey;
 
-    /**
-     * @var QueryHandlerInterface
-     */
-    private $queryHandler;
+    private QueryHandlerInterface $queryHandler;
 
-    /**
-     * Override the default cors config per instance
-     * @var array
-     */
-    protected $corsConfig = [];
+    protected array $corsConfig = [];
 
-    /**
-     * @var bool
-     */
-    protected $autobuildSchema = true;
+    protected bool $autobuildSchema = true;
 
-    /**
-     * @param string|null $schemaKey
-     * @param QueryHandlerInterface|null $queryHandler
-     */
     public function __construct(
         ?string $schemaKey = null,
         ?QueryHandlerInterface $queryHandler = null
@@ -90,8 +72,6 @@ class Controller extends BaseController
     /**
      * Handles requests to the index action (e.g. /graphql)
      *
-     * @param HTTPRequest $request
-     * @return HTTPResponse
      * @throws InvalidArgumentException
      */
     public function index(HTTPRequest $request): HTTPResponse
@@ -166,50 +146,30 @@ class Controller extends BaseController
         return $response->addHeader('Content-Type', 'application/json');
     }
 
-    /**
-     * @return bool
-     */
     public function autobuildEnabled(): bool
     {
         return $this->autobuildSchema;
     }
 
-    /**
-     * @param bool $autobuildSchema
-     * @return Controller
-     */
     public function setAutobuildSchema(bool $autobuildSchema): Controller
     {
         $this->autobuildSchema = $autobuildSchema;
         return $this;
     }
 
-
     /**
      * Get an instance of the authorization Handler to manage any authentication requirements
-     *
-     * @return Handler
      */
     public function getAuthHandler(): Handler
     {
         return new Handler;
     }
 
-    /**
-     * @return string|null
-     */
     public function getToken(): ?string
     {
         return $this->getRequest()->getHeader('X-CSRF-TOKEN');
     }
 
-    /**
-     * Process the CORS config options and add the appropriate headers to the response.
-     *
-     * @param HTTPRequest $request
-     * @param HTTPResponse $response
-     * @return HTTPResponse
-     */
     public function addCorsHeaders(HTTPRequest $request, HTTPResponse $response): HTTPResponse
     {
         $corsConfig = $this->getMergedCorsConfig();
@@ -241,17 +201,11 @@ class Controller extends BaseController
         return $response;
     }
 
-    /**
-     * @return array
-     */
     public function getCorsConfig(): array
     {
         return $this->corsConfig;
     }
 
-    /**
-     * @return array
-     */
     public function getMergedCorsConfig(): array
     {
         $defaults = Config::inst()->get(static::class, 'cors');
@@ -260,10 +214,6 @@ class Controller extends BaseController
         return array_merge($defaults, $override);
     }
 
-    /**
-     * @param array $config
-     * @return $this
-     */
     public function setCorsConfig(array $config): self
     {
         $this->corsConfig = array_merge($this->corsConfig, $config);
@@ -273,12 +223,8 @@ class Controller extends BaseController
 
     /**
      * Validate an origin matches a set of allowed origins
-     *
-     * @param string|null $origin Origin string
-     * @param array $allowedOrigins List of allowed origins
-     * @return bool
      */
-    protected function validateOrigin(?string $origin, array $allowedOrigins)
+    protected function validateOrigin(?string $origin, array $allowedOrigins): bool
     {
         if (empty($allowedOrigins) || empty($origin)) {
             return false;
@@ -295,7 +241,6 @@ class Controller extends BaseController
     }
 
     /**
-     * @param QueryHandlerInterface $handler
      * @throws Exception
      */
     protected function applyContext(QueryHandlerInterface $handler)
@@ -316,9 +261,6 @@ class Controller extends BaseController
 
     /**
      * Get (or infer) value of Origin header
-     *
-     * @param HTTPRequest $request
-     * @return string|null
      */
     protected function getRequestOrigin(HTTPRequest $request): ?string
     {
@@ -349,9 +291,6 @@ class Controller extends BaseController
 
     /**
      * Response for HTTP OPTIONS request
-     *
-     * @param HTTPRequest $request
-     * @return HTTPResponse
      */
     protected function handleOptions(HTTPRequest $request)
     {
@@ -372,11 +311,9 @@ class Controller extends BaseController
     /**
      * Parse query and variables from the given request
      *
-     * @param HTTPRequest $request
-     * @return array Array containing query and variables as a pair
      * @throws LogicException
      */
-    protected function getRequestQueryVariables(HTTPRequest $request)
+    protected function getRequestQueryVariables(HTTPRequest $request): array
     {
         $contentType = $request->getHeader('content-type');
         $isJson = preg_match('#^application/json\b#', $contentType ?? '');
@@ -397,8 +334,6 @@ class Controller extends BaseController
     /**
      * Get user and validate for this request
      *
-     * @param HTTPRequest $request
-     * @return Member|null
      * @throws Exception
      */
     protected function getRequestUser(HTTPRequest $request): ?Member
@@ -425,37 +360,22 @@ class Controller extends BaseController
         return $member;
     }
 
-    /**
-     * @param string $schemaKey
-     * @return $this
-     */
     public function setSchemaKey(string $schemaKey): self
     {
         $this->schemaKey = $schemaKey;
-
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSchemaKey(): ?string
     {
         return $this->schemaKey;
     }
 
-    /**
-     * @return QueryHandlerInterface
-     */
     public function getQueryHandler(): QueryHandlerInterface
     {
         return $this->queryHandler;
     }
 
-    /**
-     * @param QueryHandlerInterface $queryHandler
-     * @return Controller
-     */
     public function setQueryHandler(QueryHandlerInterface $queryHandler): self
     {
         $this->queryHandler = $queryHandler;

@@ -21,7 +21,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
      * @var int
      * @config
      */
-    private static $timeout = 5;
+    private static int $timeout = 5;
 
     /**
      * Example:
@@ -39,14 +39,11 @@ class HTTPProvider implements PersistedQueryMappingProvider
      * @var array
      * @config
      */
-    protected $schemaToURL = [
+    protected array $schemaToURL = [
         'default' => ''
     ];
 
-    /**
-     * @var HTTPClient
-     */
-    protected $client;
+    protected HTTPClient $client;
 
     /**
      * A cache of schema key to HTTP responses
@@ -58,7 +55,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
      * HTTPProvider constructor.
      * @param HTTPClient $client
      */
-    public function __construct(HTTPClient $client = null)
+    public function __construct(?HTTPClient $client)
     {
         if (!$client) {
             $client = Injector::inst()->get(GuzzleHTTPClient::class);
@@ -72,7 +69,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
      * @param string $schemaKey
      * @return array
      */
-    public function getQueryMapping($schemaKey = 'default')
+    public function getQueryMapping(string $schemaKey = 'default'): array
     {
         if (isset($this->responseCache[$schemaKey])) {
             return $this->responseCache[$schemaKey];
@@ -110,7 +107,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
      * @param string $schemaKey
      * @return string
      */
-    public function getByID($queryID, $schemaKey = 'default')
+    public function getByID(string $queryID, string $schemaKey = 'default'): ?string
     {
         $mapping = $this->getQueryMapping($schemaKey);
 
@@ -121,7 +118,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
      * @param array $mapping
      * @return $this
      */
-    public function setSchemaMapping(array $mapping)
+    public function setSchemaMapping(array $mapping): self
     {
         foreach ($mapping as $schemaKey => $url) {
             if (!filter_var($url, FILTER_VALIDATE_URL)) {
@@ -142,7 +139,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
     /**
      * @return array
      */
-    public function getSchemaMapping()
+    public function getSchemaMapping(): array
     {
         return $this->schemaToURL;
     }
@@ -151,7 +148,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
      * @param HTTPClient $client
      * @return $this
      */
-    public function setClient(HTTPClient $client)
+    public function setClient(HTTPClient $client): self
     {
         $this->client = $client;
 
@@ -161,7 +158,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
     /**
      * @return HTTPClient
      */
-    public function getClient()
+    public function getClient(): HTTPClient
     {
         return $this->client;
     }

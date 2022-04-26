@@ -29,13 +29,13 @@ class CanViewPermission extends AbstractCanViewPermission
         return self::IDENTIFIER;
     }
 
-    protected function getPermissionResolver(): array
+    protected function getPermissionResolver(): callable
     {
         return [static::class, 'permissionCheck'];
     }
 
     /**
-     * @param $obj
+     * @param mixed $obj
      * @param array $args
      * @param array $context
      * @param ResolveInfo $info
@@ -110,7 +110,7 @@ class CanViewPermission extends AbstractCanViewPermission
      * @param ResolveInfo $info
      * @return object|null
      */
-    public static function itemPermissionCheck($obj, array $args, array $context, ResolveInfo $info)
+    public static function itemPermissionCheck($obj, array $args, array $context, ResolveInfo $info): ?object
     {
         $member = UserContextProvider::get($context);
         if (is_object($obj) && method_exists($obj, 'canView')) {

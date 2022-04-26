@@ -29,7 +29,7 @@ class QueryRecorderExtension extends DataExtension
      * @param SQLSelect $select
      * @param DataQuery $query
      */
-    public function augmentDataQueryCreation(SQLSelect $select, DataQuery $query)
+    public function augmentDataQueryCreation(SQLSelect $select, DataQuery $query): void
     {
         // Skip if disabled
         if (empty($this->levels)) {
@@ -50,7 +50,7 @@ class QueryRecorderExtension extends DataExtension
      * @param callable $callback
      * @return array Two-length array with list of classes and result of callback
      */
-    public function recordClasses(callable $callback)
+    public function recordClasses(callable $callback): array
     {
         // Create nesting level
         $this->levels[] = [];

@@ -51,7 +51,7 @@ class ModelConfiguration extends Configuration
      * @return string
      * @throws SchemaBuilderException
      */
-    public function getTypeName(string $class, $mapping = []): string
+    public function getTypeName(string $class, array $mapping = []): string
     {
         $typeName = $this->formatClass($class);
         $prefix = $this->getPrefix($class);
