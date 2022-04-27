@@ -33,7 +33,7 @@ class UnionType implements
 
     private ResolverReference $typeResolver;
 
-    private ?string $description;
+    private ?string $description = null;
 
     /**
      * @throws SchemaBuilderException
