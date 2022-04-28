@@ -12,7 +12,7 @@ use SilverStripe\Security\Security;
 trait MemberAware
 {
 
-    private ?Member $member;
+    private ?Member $member = null;
 
     /**
      * Set the Member for the current context

@@ -29,7 +29,7 @@ class Configuration
     /**
      * Return a setting by dot.separated.syntax
      * @param string|array $path
-     * @param ?mixed $default
+     * @param mixed|null $default
      * @return mixed
      * @throws SchemaBuilderException
      */

@@ -30,7 +30,6 @@ class Build extends Controller
     ];
 
     /**
-     * @param HTTPRequest $request
      * @throws SchemaBuilderException
      * @throws SchemaNotFoundException
      */
@@ -54,13 +53,10 @@ class Build extends Controller
     }
 
     /**
-     * @param string $key
-     * @param bool $clear
-     * @param int $level
      * @throws SchemaNotFoundException
      * @throws SchemaBuilderException
      */
-    public function buildSchema(string $key = null, $clear = true): void
+    public function buildSchema(string $key = null, bool $clear = true): void
     {
         /** @var LoggerInterface $logger */
         $logger = Injector::inst()->get(LoggerInterface::class . '.graphql-build');

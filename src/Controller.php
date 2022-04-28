@@ -55,6 +55,9 @@ class Controller extends BaseController
 
     private QueryHandlerInterface $queryHandler;
 
+    /**
+     * Override the default cors config per instance
+     */
     protected array $corsConfig = [];
 
     protected bool $autobuildSchema = true;
@@ -169,6 +172,9 @@ class Controller extends BaseController
         return $this->getRequest()->getHeader('X-CSRF-TOKEN');
     }
 
+    /**
+     * Process the CORS config options and add the appropriate headers to the response.
+     */
     public function addCorsHeaders(HTTPRequest $request, HTTPResponse $response): HTTPResponse
     {
         $corsConfig = $this->getMergedCorsConfig();
@@ -242,7 +248,7 @@ class Controller extends BaseController
     /**
      * @throws Exception
      */
-    protected function applyContext(QueryHandlerInterface $handler)
+    protected function applyContext(QueryHandlerInterface $handler): void
     {
         $request = $this->getRequest();
         $user = $this->getRequestUser($request);
@@ -291,7 +297,7 @@ class Controller extends BaseController
     /**
      * Response for HTTP OPTIONS request
      */
-    protected function handleOptions(HTTPRequest $request)
+    protected function handleOptions(HTTPRequest $request): HTTPResponse
     {
         $response = HTTPResponse::create();
         $corsConfig = Config::inst()->get(self::class, 'cors');

@@ -74,10 +74,6 @@ class QueryCachingMiddleware implements QueryMiddleware, Flushable
         return $this->cache;
     }
 
-    /**
-     * @param CacheInterface $cache
-     * @return $this
-     */
     public function setCache(CacheInterface $cache): self
     {
         $this->cache = $cache;
@@ -86,10 +82,6 @@ class QueryCachingMiddleware implements QueryMiddleware, Flushable
 
     /**
      * Generate cache key
-     *
-     * @param string $query
-     * @param array $vars
-     * @return string
      */
     protected function generateCacheKey(string $query, array $vars): string
     {
@@ -106,9 +98,6 @@ class QueryCachingMiddleware implements QueryMiddleware, Flushable
      * Get and validate cached response.
      *
      * Note: Cached responses can only be returned in array format, not object format.
-     *
-     * @param string $key
-     * @return array|null
      * @throws InvalidArgumentException
      */
     protected function getCachedResponse(string $key): ?array
@@ -138,9 +127,7 @@ class QueryCachingMiddleware implements QueryMiddleware, Flushable
     /**
      * Send a successful response to the cache
      *
-     * @param string $key
      * @param ExecutionResult|array $response
-     * @param array $classesUsed
      * @throws InvalidArgumentException
      */
     protected function storeCache(string $key, $response, array $classesUsed): void

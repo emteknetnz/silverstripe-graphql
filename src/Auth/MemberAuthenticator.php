@@ -25,12 +25,6 @@ class MemberAuthenticator implements AuthenticatorInterface
         return Security::getCurrentUser();
     }
 
-    /**
-     * Determine if this authenticator is applicable to the current request
-     *
-     * @param HTTPRequest $request
-     * @return bool
-     */
     public function isApplicable(HTTPRequest $request): bool
     {
         $user = Security::getCurrentUser();

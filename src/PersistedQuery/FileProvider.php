@@ -35,9 +35,6 @@ class FileProvider implements PersistedQueryMappingProvider
 
     /**
      * return a map from <id> to <query>
-     *
-     * @param string $schemaKey
-     * @return array
      */
     public function getQueryMapping(string $schemaKey = 'default'): array
     {

@@ -24,10 +24,7 @@ class QueryRecorderExtension extends DataExtension
     protected $levels = [];
 
     /**
-     * Record query against a given class
-     *
-     * @param SQLSelect $select
-     * @param DataQuery $query
+     * Record query against a given class.
      */
     public function augmentDataQueryCreation(SQLSelect $select, DataQuery $query): void
     {
@@ -47,7 +44,6 @@ class QueryRecorderExtension extends DataExtension
      * Create a new nesting level, record all classes queried during the callback, and unnest.
      * Returns an array containing [ $listOfClasses, $resultOfCallback ]
      *
-     * @param callable $callback
      * @return array Two-length array with list of classes and result of callback
      */
     public function recordClasses(callable $callback): array
