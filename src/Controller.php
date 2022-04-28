@@ -80,8 +80,7 @@ class Controller extends BaseController
             throw new BadMethodCallException('Cannot query the controller without a schema key defined');
         }
 
-        $stage = $request->param('Stage');
-        if ($stage) {
+        if (class_exists(Versioned::class) && $stage = $request->param('Stage')) {
             Versioned::set_stage($stage);
         }
 
