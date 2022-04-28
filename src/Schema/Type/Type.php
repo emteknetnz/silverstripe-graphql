@@ -35,7 +35,7 @@ class Type implements ConfigurationApplier, SchemaValidator, SignatureProvider, 
     /**
      * @var string|null
      */
-    private ?string  $description = null;
+    private ?string $description = null;
 
     private array $interfaces = [];
 

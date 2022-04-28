@@ -55,7 +55,7 @@ class HTTPProvider implements PersistedQueryMappingProvider
      * HTTPProvider constructor.
      * @param HTTPClient $client
      */
-    public function __construct(?HTTPClient $client)
+    public function __construct(?HTTPClient $client = null)
     {
         if (!$client) {
             $client = Injector::inst()->get(GuzzleHTTPClient::class);

@@ -39,7 +39,7 @@ class PaginationPlugin implements FieldPlugin, SchemaUpdater
      * @config
      * @var ?callable
      */
-    private static ?array $resolver = null;
+    private static $resolver = null;
 
     public function getIdentifier(): string
     {

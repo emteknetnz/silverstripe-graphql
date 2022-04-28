@@ -70,8 +70,6 @@ class FileProvider implements PersistedQueryMappingProvider
     }
 
     /**
-     * @param array $mapping
-     * @return $this
      */
     public function setSchemaMapping(array $mapping): self
     {

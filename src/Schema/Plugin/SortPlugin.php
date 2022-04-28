@@ -34,7 +34,7 @@ class SortPlugin implements FieldPlugin, SchemaUpdater
      * @config
      * @var callable
      */
-    private static array $resolver = [__CLASS__, 'sort'];
+    private static $resolver = [__CLASS__, 'sort'];
 
     public function getIdentifier(): string
     {
