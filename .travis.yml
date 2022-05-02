@@ -1,5 +1,4 @@
 version: ~> 1.0
-git commit
 import:
   - maxime-rainville/silverstripe-travis-shared:config/provision/standard-jobs-fixed-behat.yml
 
